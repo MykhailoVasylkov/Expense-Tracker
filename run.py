@@ -55,8 +55,24 @@ def add_expense():
             break
         else:
             print("Error: Invalid category input. Enter a number from 1 to 7.")
+        """
+        I used Chat-GPT to figure out how collect date data using datetime module
+        """
+    while True:
+        date_input = input("\nEnter the date (dd-mm-yyyy) or press Enter for today's date or 'm' to return to the menu: ")
+        if date_input.lower() == 'm':
+            return
+        if date_input:
+            try:
+                date = datetime.datetime.strptime(date_input, "%d-%m-%Y").date()
+                break
+            except ValueError:
+                print("Error: Incorrect date format. Use dd-mm-yyyy.")
+        else:
+            date = datetime.date.today().strftime("%d-%m-%Y")
+            break
 
-    SHEET.append_row([amount, category])  # Add data to Google Sheets
+    SHEET.append_row([amount, category, str(date)])  # Add data to Google Sheets
     print("\nExpense added successfully!")
 
 add_expense()
