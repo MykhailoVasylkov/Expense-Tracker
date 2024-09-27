@@ -90,5 +90,12 @@ def load_and_view_expenses():
     except Exception as e:
         print(f"Error loading data from Google Sheets: {e}")
         return
-    
 
+# Load all expenses from Google Sheets into the local list
+        for row in rows:
+            expense = {
+                "amount": float(row["Amount"]),
+                "category": row["Category"],
+                "date": row["Date"]
+            }
+            expenses.append(expense)   
