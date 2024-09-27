@@ -99,3 +99,11 @@ def load_and_view_expenses():
                 "date": row["Date"]
             }
             expenses.append(expense)   
+        
+        while True:  # Use loop for the menu
+            print("\nFilter expenses:")
+            print("1. By date")
+            print("2. By category")
+            print("3. Show all records")
+            print("m. Return to the previous menu")
+            filter_choice = input("Choose a filtering option (1-3 or 'm' to return to the menu): ")
