@@ -31,8 +31,32 @@ def add_expense():
             break
         except ValueError:
             print("Error: Please enter a numeric value for the amount.")
+    
+    categories_dict = {
+        "1": "Food",
+        "2": "Transport",
+        "3": "Utilities",
+        "4": "Clothing",
+        "5": "Entertainment/Travel",
+        "6": "Health",
+        "7": "Other"
+    }
 
-    SHEET.append_row([amount])  # Add data to Google Sheets
+    while True:
+        print("\nEnter the expense category or press 'm' to return to the menu:")
+        for key, value in categories_dict.items():
+            print(f"{key}. {value}")
+        category_input = input("Choose a category (1-7): ")
+        
+        if category_input.lower() == 'm':
+            return
+        if category_input in categories_dict:
+            category = categories_dict[category_input]
+            break
+        else:
+            print("Error: Invalid category input. Enter a number from 1 to 7.")
+
+    SHEET.append_row([amount, category])  # Add data to Google Sheets
     print("\nExpense added successfully!")
 
 add_expense()
