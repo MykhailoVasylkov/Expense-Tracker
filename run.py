@@ -75,4 +75,20 @@ def add_expense():
     SHEET.append_row([amount, category, str(date)])  # Add data to Google Sheets
     print("\nExpense added successfully!")
 
-add_expense()
+expenses = [] # Empty list for expenses
+
+# Function to load and view expenses with filtering options
+def load_and_view_expenses():
+    global SHEET
+  
+    try:
+        # Get all records from Google Sheets
+        rows = SHEET.get_all_records() 
+        if not rows:
+            print("Google Sheets is empty or missing headers.")
+            return
+    except Exception as e:
+        print(f"Error loading data from Google Sheets: {e}")
+        return
+    
+
