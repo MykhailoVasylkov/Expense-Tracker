@@ -1,7 +1,8 @@
 # Used code snippet from Love Sandwich project
 import gspread
 from google.oauth2.service_account import Credentials
-import datetime # Imported datetime module to working with dates and times.  
+# Imported datetime module to working with dates and times.
+import datetime   
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -14,9 +15,11 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Expense Tracker').sheet1  # Open the first sheet
 
-# Function to add a new expense
-# I used Chat-GPT to figure out how return back to the menu
-# I used https://docs.python.org/3/tutorial/errors.html to handle try except block
+"""
+Function to add a new expense
+I used Chat-GPT to figure out how return back to the menu
+I used https://docs.python.org/3/tutorial/errors.html to handle try except block
+"""
 
 def add_expense():
     while True:
@@ -24,7 +27,7 @@ def add_expense():
             amount = input("\nEnter the expense amount or press 'm' to return to the menu: ")
             if amount.lower() == 'm':
                 return
-            amount = float(amount) #Conver to floating point number
+            amount = float(amount) #Convert to floating point number
             if amount <= 0:
                 print("Error: Amount must be a positive number.")
                 continue
@@ -55,9 +58,9 @@ def add_expense():
             break
         else:
             print("Error: Invalid category input. Enter a number from 1 to 7.")
-        """
-        I used Chat-GPT to figure out how collect date data using datetime module
-        """
+        
+        # I used Chat-GPT to figure out how collect date data using datetime module
+        
     while True:
         date_input = input("\nEnter the date (dd-mm-yyyy) or press Enter for today's date or 'm' to return to the menu: ")
         if date_input.lower() == 'm':
@@ -75,7 +78,8 @@ def add_expense():
     SHEET.append_row([amount, category, str(date)])  # Add data to Google Sheets
     print("\nExpense added successfully!")
 
-expenses = [] # Empty list for expenses
+# Empty list for expenses
+expenses = [] 
 
 # Function to load and view expenses with filtering options
 def load_and_view_expenses():
@@ -98,12 +102,38 @@ def load_and_view_expenses():
                 "category": row["Category"],
                 "date": row["Date"]
             }
-            expenses.append(expense)   
-        
-        while True:  # Use loop for the menu
+            expenses.append(expense)
+
+        # Use loop for the menu
+        while True:  
             print("\nFilter expenses:")
             print("1. By date")
             print("2. By category")
             print("3. Show all records")
             print("m. Return to the previous menu")
             filter_choice = input("Choose a filtering option (1-3 or 'm' to return to the menu): ")
+            
+            # I used Chat-GPT to implement filters
+            if filter_choice == "1":
+                # Input start date
+                start_date_input = input("Enter start date (dd-mm-yyyy) or 'm' to return to the menu: ")
+                if start_date_input.lower() == 'm':
+                    break  
+                try:
+                    start_date = datetime.datetime.strptime(start_date_input, "%d-%m-%Y").date()
+                except ValueError:
+                    print("Error: Incorrect date format. Make sure to use dd-mm-yyyy.")
+                    continue  
+
+                # Input end date
+                end_date_input = input("Enter end date (dd-mm-yyyy) or 'm' to return to the menu: ")
+                if end_date_input.lower() == 'm':
+                    break  
+                try:
+                    end_date = datetime.datetime.strptime(end_date_input, "%d-%m-%Y").date()
+                except ValueError:
+                    print("Error: Incorrect date format. Make sure to use dd-mm-yyyy.")
+                    continue  
+
+                # Filter expenses by entered dates
+                filtered_expenses = filter_expenses_by_date(start_date, end_date)
