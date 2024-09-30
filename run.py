@@ -28,7 +28,7 @@ def add_expense():
         try:
             amount = input(
                 f"Enter the expense amount"
-                f"or press 'm' to return to the menu:"
+                f" or press 'm' to return to the menu:\n"
             )
             if amount.lower() == 'm':
                 return
@@ -56,7 +56,7 @@ def add_expense():
             )
         for key, value in categories_dict.items():
             print(f"{key}. {value}")
-        category_input = input("Choose a category (1-7): ")
+        category_input = input("Choose a category (1-7):\n")
 
         if category_input.lower() == 'm':
             return
@@ -74,7 +74,7 @@ def add_expense():
     while True:
         date_input = input(
             f"Enter the date (dd-mm-yyyy) or press Enter for today's"
-            f"date or 'm' to return to the menu: ")
+            f" date or 'm' to return to the menu:\n")
         if date_input.lower() == 'm':
             return
         if date_input:
@@ -134,7 +134,7 @@ def load_and_view_expenses():
                 # Input start date
                 start_date_input = input(
                     f"Enter start date (dd-mm-yyyy)"
-                    f"or 'm' to return to the menu: "
+                    f" or 'm' to return to the menu:\n"
                     )
                 if start_date_input.lower() == 'm':
                     break
@@ -153,7 +153,7 @@ def load_and_view_expenses():
                 # Input end date
                 end_date_input = input(
                     f"Enter end date (dd-mm-yyyy)"
-                    f" or 'm' to return to the menu: ")
+                    f" or 'm' to return to the menu:\n")
                 if end_date_input.lower() == 'm':
                     break
                 try:
@@ -186,7 +186,7 @@ def load_and_view_expenses():
                     print(f"{key}. {value}")
                 category_input = input(
                     f"Choose a category (1-7)"
-                    f" or 'm' to return to the menu: "
+                    f" or 'm' to return to the menu:\n"
                     )
                 if category_input.lower() == 'm':
                     break
@@ -220,7 +220,7 @@ def load_and_view_expenses():
 
             else:
                 print("No expenses to display according to the filter.")
-            input("\nPress Enter to return to the menu.")
+            input("\nPress Enter to return to the menu.\n")
 
     except Exception as e:
         print(f"Error loading data from Google Sheets: {e}")
@@ -242,8 +242,8 @@ def analyze_expenses():
         print("3. Analyze all records")
         print("m. Return to the menu")
         filter_choice = input(
-                        f"Choose a filtering option "
-                        f"(1-3 or 'm' to return to the menu): "
+                        f"Choose a filtering option"
+                        f" (1-3 or 'm' to return to the menu):\n"
                         )
 
         # Analyze expenses by date
@@ -251,10 +251,10 @@ def analyze_expenses():
             try:
                 start_date = datetime.datetime.strptime(input(
                     f"Enter start date (dd-mm-yyyy)"
-                    f" or 'm' to return to the menu: "), "%d-%m-%Y").date()
+                    f" or 'm' to return to the menu:\n"), "%d-%m-%Y").date()
                 end_date = datetime.datetime.strptime(input(
                     f"Enter end date (dd-mm-yyyy)"
-                    f" or 'm' to return to the menu: "), "%d-%m-%Y").date()
+                    f" or 'm' to return to the menu:\n"), "%d-%m-%Y").date()
                 filtered_expenses_analyze = filter_expenses_by_date(
                     start_date, end_date
                 )
@@ -281,7 +281,7 @@ def analyze_expenses():
                 print(f"{key}. {value}")
             category_input = input(
                 f"Choose a category (1-7)"
-                f" or 'm' to return to the menu: "
+                f" or 'm' to return to the menu:\n"
                 )
             if category_input.lower() == 'm':
                 return
@@ -321,7 +321,7 @@ def analyze_expenses():
                 print(f"{category}: {amount}")
         else:
             print("No expenses to analyze according to the filter.")
-        input("\nPress Enter to return to the menu.")
+        input("\nPress Enter to return to the menu.\n")
 
 
 # Filtering functions for date and category
