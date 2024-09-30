@@ -137,3 +137,29 @@ def load_and_view_expenses():
 
                 # Filter expenses by entered dates
                 filtered_expenses = filter_expenses_by_date(start_date, end_date)
+            
+            #Filtering by category
+            elif filter_choice == "2":
+                categories_dict = {
+                    "1": "Food",
+                    "2": "Transport",
+                    "3": "Utilities",
+                    "4": "Clothing",
+                    "5": "Entertainment/Travel",
+                    "6": "Health",
+                    "7": "Other"
+                }
+                print("\nAvailable categories for filtering:")
+                for key, value in categories_dict.items():
+                    print(f"{key}. {value}")
+                category_input = input("Choose a category (1-7) or 'm' to return to the menu: ")
+                if category_input.lower() == 'm':
+                    break 
+                category = categories_dict.get(category_input)
+
+                if not category:
+                    print("Error: Invalid category input.")
+                    continue 
+                filtered_expenses = filter_expenses_by_category(category)
+            
+            
