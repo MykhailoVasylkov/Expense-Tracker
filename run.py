@@ -270,4 +270,29 @@ def filter_expenses_by_date(start_date, end_date):
 
 # Function to filter expenses by category
 def filter_expenses_by_category(category):
-    return [expense for expense in expenses if expense["category"] == category]      
+    return [expense for expense in expenses if expense["category"] == category]   
+
+# Main menu function
+def main_menu():
+    while True:
+        print("\n----- Expense Tracker Menu -----")
+        print("1. Add Expense")
+        print("2. Load and View Expenses")
+        print("3. Analyze Expenses")
+        print("m. Exit")
+        choice = input("Choose an action (1-3 or 'm' to exit): ")
+
+        if choice == "1":
+            add_expense()
+        elif choice == "2":
+            load_and_view_expenses()
+        elif choice == "3":
+            analyze_expenses()
+        elif choice.lower() == 'm':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid input. Please try again.")
+
+# Run the application
+main_menu()  
