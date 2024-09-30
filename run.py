@@ -162,4 +162,24 @@ def load_and_view_expenses():
                     continue 
                 filtered_expenses = filter_expenses_by_category(category)
             
+            # Display all or filtered expenses
+            # Show all expenses
+            elif filter_choice == "3":
+                filtered_expenses = expenses  
+
+            elif filter_choice.lower() == 'm':
+                break 
+            else:
+                print("Invalid choice. Please choose '1', '2', '3' or 'm'.")
+                continue 
+
+            # Display filtered or all expenses
+            if filtered_expenses:
+                print("\nSelected expenses:")
+                for expense in filtered_expenses:
+                    print(f"Amount: {expense['amount']}, Category: {expense['category']}, Date: {expense['date']}")
+            else:
+                print("No expenses to display according to the filter.")
+            input("\nPress Enter to return to the menu.")
+
             
