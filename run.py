@@ -181,11 +181,14 @@ def load_and_view_expenses():
             else:
                 print("No expenses to display according to the filter.")
             input("\nPress Enter to return to the menu.")
-            
+# Filtering functions for date and category
 # Function to filter expenses by date
 def filter_expenses_by_date(start_date, end_date):
     return [
         expense for expense in expenses
         if start_date <= datetime.datetime.strptime(expense['date'], "%d-%m-%Y").date() <= end_date
     ]
-            
+
+# Function to filter expenses by category
+def filter_expenses_by_category(category):
+    return [expense for expense in expenses if expense["category"] == category]      
