@@ -208,6 +208,57 @@ def analyze_expenses():
             except ValueError:
                 print("Error: Incorrect date format. Make sure to use dd-mm-yyyy.")
                 continue
+        
+        # Analyze expenses by category  
+        elif filter_choice == "2":
+            categories_dict = {
+                "1": "Food",
+                "2": "Transport",
+                "3": "Utilities",
+                "4": "Clothing",
+                "5": "Entertainment/Travel",
+                "6": "Health",
+                "7": "Other"
+            }
+            print("\nAvailable categories for filtering:")
+            for key, value in categories_dict.items():
+                print(f"{key}. {value}")
+            category_input = input("Choose a category (1-7) or 'm' to return to the menu: ")
+            if category_input.lower() == 'm':
+                return
+            category = categories_dict.get(category_input)
+
+            if not category:
+                print("Error: Invalid category input.")
+                continue
+            filtered_expenses_for_analy = filter_expenses_by_category(category)
+        
+        # Analyze all expenses
+        elif filter_choice == "3":
+            filtered_expenses_for_analy = expenses  
+        
+        elif filter_choice.lower() == 'm':
+            return
+        else:
+            print("Invalid choice. Please choose '1', '2', '3' or 'm'.")
+            continue
+        
+        # Analyzing filtered or all expenses
+        if filtered_expenses_for_analy:
+            total = sum([expense['amount'] for expense in filtered_expenses_for_analy])
+            print(f"\nTotal expenses: {total}")
+
+            # Analyze expenses by category
+            categories = {}
+            for expense in filtered_expenses_for_analy:
+                categories[expense["category"]] = categories.get(expense["category"], 0) + expense["amount"]
+
+            print("\nAnalysis by category:")
+            for category, amount in categories.items():
+                print(f"{category}: {amount}")
+        else:
+            print("No expenses to analyze according to the filter.")
+        input("\nPress Enter to return to the menu.")
 
 # Filtering functions for date and category
 # Function to filter expenses by date
