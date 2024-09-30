@@ -83,18 +83,15 @@ expenses = []
 
 # Function to load and view expenses with filtering options
 def load_and_view_expenses():
-    global SHEET
+    global expenses, SHEET
   
     try:
         # Get all records from Google Sheets
-        rows = SHEET.get_all_records() 
+        rows = SHEET.get_all_records()
         if not rows:
             print("Google Sheets is empty or missing headers.")
             return
-    except Exception as e:
-        print(f"Error loading data from Google Sheets: {e}")
-        return
-
+    
 # Load all expenses from Google Sheets into the local list
         for row in rows:
             expense = {
@@ -181,6 +178,37 @@ def load_and_view_expenses():
             else:
                 print("No expenses to display according to the filter.")
             input("\nPress Enter to return to the menu.")
+
+    except Exception as e:
+        print(f"Error loading data from Google Sheets: {e}")
+        return
+
+# Function to analyze expenses with filtering options
+def analyze_expenses():
+    if not expenses:
+        print("No expenses for analysis. You need to download expenses.")
+        return
+    
+    filtered_expenses_for_analyze = []
+
+    while True:
+        print("\nFilter expenses:")
+        print("1. By date")
+        print("2. By category")
+        print("3. Analyze all records")
+        print("m. Return to the menu")
+        filter_choice = input("Choose a filtering option (1-3 or 'm' to return to the menu): ")
+
+        # Analyze expenses by date
+        if filter_choice == "1":
+            try:
+                start_date = datetime.datetime.strptime(input("Enter start date (dd-mm-yyyy) or 'm' to return to the menu: "), "%d-%m-%Y").date()
+                end_date = datetime.datetime.strptime(input("Enter end date (dd-mm-yyyy) or 'm' to return to the menu: "), "%d-%m-%Y").date()
+                filtered_expenses_for_analyze = filter_expenses_by_date(start_date, end_date)
+            except ValueError:
+                print("Error: Incorrect date format. Make sure to use dd-mm-yyyy.")
+                continue
+
 # Filtering functions for date and category
 # Function to filter expenses by date
 def filter_expenses_by_date(start_date, end_date):
